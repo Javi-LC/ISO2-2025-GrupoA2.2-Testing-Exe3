@@ -60,7 +60,7 @@ public class ActivityRecommender {
         return recommendations;
     }
 }
-package ISO2.Exe3.Domain;
+package iso2.exe3.domain;
 
 import java.util.ArrayList;
 import java.util.List;
