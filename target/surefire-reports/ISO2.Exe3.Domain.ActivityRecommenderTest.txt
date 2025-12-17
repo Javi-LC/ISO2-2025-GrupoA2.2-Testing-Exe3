@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: ISO2.Exe3.Domain.ActivityRecommenderTest
--------------------------------------------------------------------------------
-Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.111 s - in ISO2.Exe3.Domain.ActivityRecommenderTest
