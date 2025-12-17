@@ -1,0 +1,22 @@
+# Maven
+target/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.iml
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Mac/Windows
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# generated files
+/**/*.class
