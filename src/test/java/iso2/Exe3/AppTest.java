@@ -1,4 +1,4 @@
-package ISO2.Exe3;
+package iso2.Exe3;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

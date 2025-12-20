@@ -4,4 +4,4 @@
  * The package contains the activity recommendation logic used by the
  * unit tests and the sample application.
  */
-package iso2.exe3.domain;
+package ISO2.Exe3.Domain;

@@ -1,4 +1,4 @@
-package iso2.exe3.domain;
+package ISO2.Exe3.Domain;
 
 import java.util.ArrayList;
 import java.util.List;
