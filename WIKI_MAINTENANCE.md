@@ -26,12 +26,11 @@ Top prioritized tasks:
 
 ## Assigned Tasks (issues)
 
-- ISSUE-1: Fix test/package name mismatches — assignee: @student — status: Open
-- ISSUE-2: Complete remaining Checkstyle fixes — assignee: @student — status: Open (6 lines + 2 package name issues)
-- ISSUE-3: Re-enable SpotBugs or update plugin — assignee: @student/maintainer — status: Open
-- ISSUE-4: Update JaCoCo or run under JDK 17 for reliable coverage — assignee: @student/maintainer — status: Open
+- ISSUE-1: Fix test/package name mismatches 
+- ISSUE-2: Complete remaining Checkstyle 
+- ISSUE-3: Re-enable SpotBugs or update 
+- ISSUE-4: Update JaCoCo or run under JDK 17 for reliable coverage
 
-Use the `issues/` directory in the repository to store issue markdowns and to track progress; each issue includes scope, priority and estimated effort.
 
 ## Execution record
 
@@ -40,11 +39,3 @@ Use the `issues/` directory in the repository to store issue markdowns and to tr
 - Maintenance commit (fixes/doc): `4ca4777`
 - Version bumped to `0.0.2-SNAPSHOT` and pushed to `main` (commit `adcb772`)
 - Generated sites and added comparison archives under `site-comparison/`
-
-## Approval record
-
-To approve the maintenance plan, add an approval line here with reviewer GitHub handle and date. Example:
-
-- Approved by: @course-instructor — 2025-12-17
-
-If you want, I can create GitHub issues from the `issues/` files using the GitHub API (requires token). Otherwise the issues are ready in the repo and can be copied to the project tracker.

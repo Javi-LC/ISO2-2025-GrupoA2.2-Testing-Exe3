@@ -14,4 +14,4 @@ Release candidate produced after maintenance activities.
 - Version bump: `adcb772` (0.0.2-SNAPSHOT)
 
 ## Notes
-This is a release candidate. Some tasks remain (Checkstyle small fixes, SpotBugs/JaCoCo compatibility). Run the test matrix and finalize the release once the team confirms.
+This is a release candidate. Some tasks remain (Checkstyle small fixes, SpotBugs/JaCoCo compatibility).
