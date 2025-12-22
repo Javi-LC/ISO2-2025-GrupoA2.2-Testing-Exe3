@@ -1,124 +1,147 @@
 package iso2.Exe3;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-
 import ISO2.Exe3.Domain.ActivityRecommender;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class ActivityRecommenderTest {
+public class ActivityRecommenderTest {
 
     private final ActivityRecommender recommender = new ActivityRecommender();
-    
-    @ParameterizedTest(name = "Health Check: Healthy={0}, Symptoms={1} -> Should Block")
-    @CsvSource({
-        "false, false",
-        "true, true",
-        "false, true"
-    })
-    void testHealthRejection(boolean healthy, boolean symptoms) {
-        List<String> result = recommender.getRecommendation(healthy, symptoms, 20.0, 50, false, false, false);
 
-        assertEquals(1, result.size());
-        assertEquals("Not permitted to participate due to health status", result.get(0));
-    }
+    // ===========================================================================
+    // Converted ParameterizedTest to Loop
+    // Source: Health Check: Healthy={0}, Symptoms={1} -> Should Block
+    // ===========================================================================
     @Test
-    @DisplayName("Stay Home: Extreme weather logic")
-    void testStayHome() {
+    public void testHealthRejection() {
+        // Data: {healthy, symptoms}
+        boolean[][] scenarios = {
+            {false, false},
+            {true, true},
+            {false, true}
+        };
+
+        for (boolean[] scenario : scenarios) {
+            boolean healthy = scenario[0];
+            boolean symptoms = scenario[1];
+
+            List<String> result = recommender.getRecommendation(healthy, symptoms, 20.0, 50, false, false, false);
+
+            assertEquals("Failed for healthy=" + healthy + ", symptoms=" + symptoms, 1, result.size());
+            assertEquals("Not permitted to participate due to health status", result.get(0));
+        }
+    }
+
+    @Test
+    public void testStayHome() {
+        // DisplayName: Stay Home: Extreme weather logic
         List<String> result = recommender.getRecommendation(true, false, -5.0, 10, true, false, false);
         
         assertTrue(result.contains("Stay at home"));
-        assertEquals(1, result.size(), "Should only recommend staying at home");
+        assertEquals("Should only recommend staying at home", 1, result.size());
     }
 
     @Test
-    @DisplayName("Skiing: Ideal conditions")
-    void testSkiingSuccess() {
+    public void testSkiingSuccess() {
+        // DisplayName: Skiing: Ideal conditions
         List<String> result = recommender.getRecommendation(true, false, -5.0, 10, false, false, false);
         
         assertTrue(result.contains("Skiing"));
     }
 
     @Test
-    @DisplayName("Skiing: Blocked by Capacity")
-    void testSkiingCapacityFull() {
+    public void testSkiingCapacityFull() {
+        // DisplayName: Skiing: Blocked by Capacity
         List<String> result = recommender.getRecommendation(true, false, -5.0, 10, false, false, true);
         
         assertFalse(result.contains("Skiing"));
         assertTrue(result.isEmpty());
     }
 
-    @ParameterizedTest(name = "Hiking Boundary: Temp={0}")
-    @CsvSource({
-        "0.0",
-        "10.0",
-        "15.0"
-    })
-    void testHikingSuccess(double temp) {
-        List<String> result = recommender.getRecommendation(true, false, temp, 40, false, false, false);
-        assertTrue(result.contains("Hiking or Climbing"));
+    // ===========================================================================
+    // Converted ParameterizedTest to Loop
+    // Source: Hiking Boundary: Temp={0}
+    // ===========================================================================
+    @Test
+    public void testHikingSuccess() {
+        double[] temps = { 0.0, 10.0, 15.0 };
+
+        for (double temp : temps) {
+            List<String> result = recommender.getRecommendation(true, false, temp, 40, false, false, false);
+            assertTrue("Failed for temp: " + temp, result.contains("Hiking or Climbing"));
+        }
     }
 
     @Test
-    @DisplayName("Hiking: Blocked by Rain")
-    void testHikingRain() {
+    public void testHikingRain() {
+        // DisplayName: Hiking: Blocked by Rain
         List<String> result = recommender.getRecommendation(true, false, 10.0, 40, true, false, false);
         assertFalse(result.contains("Hiking or Climbing"));
     }
 
     @Test
-    @DisplayName("Spring: MC/DC Base Case (All True)")
-    void testSpringBaseCase() {
+    public void testSpringBaseCase() {
+        // DisplayName: Spring: MC/DC Base Case (All True)
         List<String> result = recommender.getRecommendation(true, false, 20.0, 50, false, false, false);
         assertTrue(result.contains("Spring/Summer/Autumn Catalog Activity"));
     }
 
-    @ParameterizedTest(name = "Spring MC/DC Failures: {4}")
-    @CsvSource({
-        "15.0, false, false, 50, Temp too low (Boundary)",
-        "25.1, false, false, 50, Temp too high",
-        "20.0, true,  false, 50, Rain blocking",
-        "20.0, false, true,  50, Clouds blocking",
-        "20.0, false, false, 61, Humidity too high"
-    })
-    void testSpringFailures(double temp, boolean precip, boolean cloudy, int hum, String reason) {
-        List<String> result = recommender.getRecommendation(true, false, temp, hum, precip, cloudy, false);
-        assertFalse(result.contains("Spring/Summer/Autumn Catalog Activity"), "Failed due to: " + reason);
+    // ===========================================================================
+    // Converted ParameterizedTest to Loop
+    // Source: Spring MC/DC Failures
+    // Data: {temp, precip, cloudy, hum, reason}
+    // ===========================================================================
+    @Test
+    public void testSpringFailures() {
+        Object[][] scenarios = {
+            {15.0, false, false, 50, "Temp too low (Boundary)"},
+            {25.1, false, false, 50, "Temp too high"},
+            {20.0, true,  false, 50, "Rain blocking"},
+            {20.0, false, true,  50, "Clouds blocking"},
+            {20.0, false, false, 61, "Humidity too high"}
+        };
+
+        for (Object[] row : scenarios) {
+            double temp = (double) row[0];
+            boolean precip = (boolean) row[1];
+            boolean cloudy = (boolean) row[2];
+            int hum = (int) row[3];
+            String reason = (String) row[4];
+
+            List<String> result = recommender.getRecommendation(true, false, temp, hum, precip, cloudy, false);
+            assertFalse("Failed due to: " + reason, result.contains("Spring/Summer/Autumn Catalog Activity"));
+        }
     }
 
     @Test
-    @DisplayName("Overlap: Temp 33 (Cultural + Beach + Pool)")
-    void testOverlapSuccess() {
+    public void testOverlapSuccess() {
+        // DisplayName: Overlap: Temp 33 (Cultural + Beach + Pool)
         List<String> result = recommender.getRecommendation(true, false, 33.0, 50, false, false, false);
 
-        assertAll("Overlap Check",
-            () -> assertTrue(result.contains("Cultural or Gastronomic Activities"), "Missing Cultural"),
-            () -> assertTrue(result.contains("Go to the Beach"), "Missing Beach"),
-            () -> assertTrue(result.contains("Go to the Swimming Pool"), "Missing Pool")
-        );
+        // JUnit 4 does not support assertAll. We run asserts sequentially.
+        assertTrue("Missing Cultural", result.contains("Cultural or Gastronomic Activities"));
+        assertTrue("Missing Beach", result.contains("Go to the Beach"));
+        assertTrue("Missing Pool", result.contains("Go to the Swimming Pool"));
         assertEquals(3, result.size());
     }
 
     @Test
-    @DisplayName("Overlap: Temp 33 with Capacity Full")
-    void testOverlapCapacityFull() {
+    public void testOverlapCapacityFull() {
+        // DisplayName: Overlap: Temp 33 with Capacity Full
         List<String> result = recommender.getRecommendation(true, false, 33.0, 50, false, false, true);
 
-        assertAll("Capacity Check",
-            () -> assertFalse(result.contains("Cultural or Gastronomic Activities"), "Cultural should be blocked"),
-            () -> assertFalse(result.contains("Go to the Swimming Pool"), "Pool should be blocked"),
-            () -> assertTrue(result.contains("Go to the Beach"), "Beach should act as fallback")
-        );
+        // Replaced assertAll with sequential asserts
+        assertFalse("Cultural should be blocked", result.contains("Cultural or Gastronomic Activities"));
+        assertFalse("Pool should be blocked", result.contains("Go to the Swimming Pool"));
+        assertTrue("Beach should act as fallback", result.contains("Go to the Beach"));
+        
         assertEquals(1, result.size());
     }
 
     @Test
-    void testHeatWave() {
+    public void testHeatWave() {
         List<String> result = recommender.getRecommendation(true, false, 40.0, 50, false, false, false);
 
         assertFalse(result.contains("Cultural or Gastronomic Activities"));
