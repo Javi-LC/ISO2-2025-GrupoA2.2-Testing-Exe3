@@ -9,6 +9,14 @@
 
   <name>Exe3</name>
   <url>http://maven.apache.org</url>
+  
+  <repositories>
+    <repository>
+      <id>project-local-repo</id>
+      <url>file://${project.basedir}/repo</url>
+    </repository>
+  </repositories>
+  
   <dependencies>
     <!-- https://mvnrepository.com/artifact/junit/junit -->
     <dependency>
@@ -19,9 +27,7 @@
     <dependency>
       <groupId>ISO2</groupId>
       <artifactId>CommandLine</artifactId>
-      <version>0.0.3</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/lib/CommandLine-0.0.3.jar</systemPath>
+      <version>0.0.3-SNAPSHOT</version>
     </dependency>
   </dependencies>
   <build>
